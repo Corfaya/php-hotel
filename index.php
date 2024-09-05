@@ -82,8 +82,8 @@
                             <div class="form-group">
                                 <select name="park" id="park" class="form-control form-control-sm">
                                     <option value="">Opzioni parcheggio</option>
-                                    <option value="1" <?php echo $_GET["park"] == 1 ? "selected" : ""; ?>>Parcheggio disponibile</option>
-                                    <option value="0" <?php echo $_GET["park"] == 0 ? "selected" : ""; ?>>Parcheggio non disponibile</option>
+                                    <option value="1" <?php echo isset($_GET["park"]) && $_GET["park"] == 1 ? "selected" : ""; ?>>Parcheggio disponibile</option>
+                                    <option value="0" <?php echo isset($_GET["park"]) && $_GET["park"] == 0 ? "selected" : ""; ?>>Parcheggio non disponibile</option>
                                 </select>
                             </div>
                         </div>
@@ -111,7 +111,7 @@
                         <th scope="col">Distanza dal centro (in km)</th>
                     </tr>
                 </thead>
-                <?php foreach($hotels as $hotel) { ?>
+                <?php foreach($filtered as $hotel) { ?>
               <tbody>
             <tr>
               <td><?php echo $hotel["name"] ?></td>
