@@ -35,7 +35,25 @@
             'vote' => 2,
             'distance_to_center' => 50
         ],
-    ]
+    ];
+    // creo un array copia degli hotel
+    $filtered = $hotels;
+    // Se esiste variabile e non è una stringa vuota
+    if (isset($_GET["park"]) && $_GET["park"] != "") {
+        // creo un array di appoggio
+        $new_array = [];
+        // Ciclo l'array copia
+        foreach($filtered as $element) {
+            // verifico che valore di $element["parking"] sia uguale a quello di $_GET["park"]
+            if($element["parking"] == $_GET["park"]) {
+                // pusho a ogni iterazione nell'array di appoggio i valori richiesti
+                $new_array [] = $element;
+            }
+        }
+
+        // a questo punto, riassegnazione di $filtered: elementi filtrati che si trovano in $new_array
+        $filtered = $new_array;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -64,8 +82,8 @@
                             <div class="form-group">
                                 <select name="park" id="park" class="form-control form-control-sm">
                                     <option value="">Opzioni parcheggio</option>
-                                    <option value="">Parcheggio disponibile</option>
-                                    <option value="">Parcheggio non disponibile</option>
+                                    <option value="1" <?php echo $_GET["park"] == 1 ? "selected" : ""; ?>>Parcheggio disponibile</option>
+                                    <option value="0" <?php echo $_GET["park"] == 0 ? "selected" : ""; ?>>Parcheggio non disponibile</option>
                                 </select>
                             </div>
                         </div>
@@ -75,6 +93,9 @@
                         <div class="col-12 col-md-4">
 
                         </div> -->
+                        <div class="col-12 mt-3">
+                            <button type="submit" class="btn btn-success">Applica i filtri</button>
+                        </div>
                     </div>
                 </form>
             </div>
