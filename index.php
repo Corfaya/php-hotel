@@ -53,6 +53,32 @@
                 <h1 class="text-center fw-bold">Hotels</h1>
             </div>
         </div>
+        <div class="row">
+            <div class="col-12 mt-5">
+                <form action="./index.php" method="GET">
+                    <div class="row">
+                        <div class="col-12">
+                            <h4 class="mb-3">Opzioni di filtraggio</h4>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <div class="form-group">
+                                <select name="park" id="park" class="form-control form-control-sm">
+                                    <option value="">Opzioni parcheggio</option>
+                                    <option value="">Parcheggio disponibile</option>
+                                    <option value="">Parcheggio non disponibile</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- <div class="col-12 col-md-4">
+
+                        </div>
+                        <div class="col-12 col-md-4">
+
+                        </div> -->
+                    </div>
+                </form>
+            </div>
+        </div>
         <div class="col-12 mt-5">
             <table class="table table-hover">
                 <thead>
