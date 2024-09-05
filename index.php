@@ -56,7 +56,6 @@
     }
 
     //Se esiste un rating (se è impostato il filtro nella select)
-
     if (isset($_GET["rating"]) && $_GET["rating"] != "") {
         // array di appoggio
         $new_array = [];
@@ -71,6 +70,22 @@
             }
         }
         // a questo punto, riassegnazione di $filtered: elementi filtrati che si trovano in $new_array
+        $filtered = $new_array;
+    }
+    //Se esiste il nome cercato
+    if (isset($_GET["hotel"]) && $_GET["hotel"] != "") {
+        //portare tutto in minuscolo
+        $hotelToLower = strtolower($_GET["hotel"]);
+        // array di appoggio
+        $new_array = [];
+        //ciclo copia
+        foreach($filtered as $element) {
+            $nameToLower = strtolower($element["name"]);
+            // I valori corrispondono? allora pusha a ogni iterazione (non valori parziali)
+            if($nameToLower == $hotelToLower) {
+                $new_array [] = $element;
+            }
+        }
         $filtered = $new_array;
     }
 ?>
@@ -99,6 +114,11 @@
                         </div>
                         <div class="col-12 col-md-4">
                             <div class="form-group">
+                                <input type="text" name="hotel" id="hotel" class="form-control form-control-sm" placeholder="Scrivi il nome intero dell'Hotel">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <div class="form-group">
                                 <select name="park" id="park" class="form-control form-control-sm">
                                     <option value="">Opzioni parcheggio</option>
                                     <option value="1" <?php echo isset($_GET["park"]) && $_GET["park"] == 1 ? "selected" : ""; ?>>Parcheggio disponibile</option>
@@ -118,9 +138,6 @@
                                 </select>
                             </div>
                         </div>
-                        <!-- <div class="col-12 col-md-4">
-
-                        </div> -->
                         <div class="col-12 mt-3">
                             <button type="submit" class="btn btn-success">Applica i filtri</button>
                         </div>
@@ -139,8 +156,8 @@
                         <th scope="col">Distanza dal centro (in km)</th>
                     </tr>
                 </thead>
-                <?php foreach($filtered as $hotel) { ?>
-              <tbody>
+                <tbody>
+                  <?php foreach($filtered as $hotel) { ?>
             <tr>
               <td><?php echo $hotel["name"] ?></td>
               <td><?php echo $hotel["description"] ?></td>
@@ -148,8 +165,8 @@
               <td><?php echo $hotel["vote"] ?></td>
               <td><?php echo $hotel["distance_to_center"] ?></td>
             </tr>
+            <?php } ?>
               </tbody>
-              <?php } ?>
             </table>
         </div>
     </div>
