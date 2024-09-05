@@ -38,7 +38,8 @@
     ];
     // creo un array copia degli hotel
     $filtered = $hotels;
-    // Se esiste variabile e non è una stringa vuota
+
+    // Se esiste variabile e non è una stringa vuota (se è impostato il filtro nella select)
     if (isset($_GET["park"]) && $_GET["park"] != "") {
         // creo un array di appoggio
         $new_array = [];
@@ -50,7 +51,25 @@
                 $new_array [] = $element;
             }
         }
+        // a questo punto, riassegnazione di $filtered: elementi filtrati che si trovano in $new_array
+        $filtered = $new_array;
+    }
 
+    //Se esiste un rating (se è impostato il filtro nella select)
+
+    if (isset($_GET["rating"]) && $_GET["rating"] != "") {
+        // array di appoggio
+        $new_array = [];
+        // da stringa a integer
+        $ratingInt = (int)$_GET["rating"];
+        // ciclo copia di nuovo
+        foreach($filtered as $element) {
+            // verifico che valore di $element["vote"] sia uguale o maggiore a quello di $_GET["rating"] (per avere voti da valore selezionato o superiore)
+            if($element["vote"] >= $ratingInt) {
+                // pusho a ogni iterazione nell'array di appoggio i valori richiesti
+                $new_array [] = $element;
+            }
+        }
         // a questo punto, riassegnazione di $filtered: elementi filtrati che si trovano in $new_array
         $filtered = $new_array;
     }
@@ -87,10 +106,19 @@
                                 </select>
                             </div>
                         </div>
-                        <!-- <div class="col-12 col-md-4">
-
-                        </div>
                         <div class="col-12 col-md-4">
+                            <div class="form-group">
+                            <select name="rating" id="rating" class="form-control form-control-sm">
+                                    <option value="">Seleziona indice di gradimento</option>
+                                    <option value="1" <?php echo isset($_GET["rating"]) && $_GET["rating"] == 1 ? "selected" : ""; ?>>Da 1 in su</option>
+                                    <option value="2" <?php echo isset($_GET["rating"]) && $_GET["rating"] == 2 ? "selected" : ""; ?>>Da 2 in su</option>
+                                    <option value="3" <?php echo isset($_GET["rating"]) && $_GET["rating"] == 3 ? "selected" : ""; ?>>Da 3 in su</option>
+                                    <option value="4" <?php echo isset($_GET["rating"]) && $_GET["rating"] == 4 ? "selected" : ""; ?>>Da 4 in su</option>
+                                    <option value="5" <?php echo isset($_GET["rating"]) && $_GET["rating"] == 5 ? "selected" : ""; ?>>5</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- <div class="col-12 col-md-4">
 
                         </div> -->
                         <div class="col-12 mt-3">
